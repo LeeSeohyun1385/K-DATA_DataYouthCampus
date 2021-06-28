@@ -1,4 +1,4 @@
-#Á¤ÁØº¯¼ö, Á¤ÁØ»ó°ü°è¼ö °è»ê
+#ì •ì¤€ë³€ìˆ˜, ì •ì¤€ìƒê´€ê³„ìˆ˜ ê³„ì‚°
 
 
 
@@ -12,7 +12,7 @@
 > y<-jop[,4:6]
 
 
-> s_xx<-cov(x) #°øºÐ»êÇà·Ä
+> s_xx<-cov(x) #ê³µë¶„ì‚°í–‰ë ¬
 
 > s_xx
 
@@ -29,9 +29,9 @@
 
 
 
-> xev<-eigen(s_xx)$values #°øºÐ»ê Çà·ÄÀÇ °íÀ¯°ª¸¸ ÀúÀå
+> xev<-eigen(s_xx)$values #ê³µë¶„ì‚° í–‰ë ¬ì˜ ê³ ìœ ê°’ë§Œ ì €ìž¥
 
-> xevec<-eigen(s_xx)$vectors #°íÀ¯º¤ÅÍ
+> xevec<-eigen(s_xx)$vectors #ê³ ìœ ë²¡í„°
 
 
 
@@ -42,18 +42,18 @@
 
 #VlamdaVT
 
-> s_xx_sq <- xevec%*%diag(1/sqrt(xev))%*%t(xevec)   #½Ã±×¸¶xx^-1/2
+> s_xx_sq <- xevec%*%diag(1/sqrt(xev))%*%t(xevec)   #ì‹œê·¸ë§ˆxx^-1/2
 
-> s_yy_sq <- yevec%*%diag(1/sqrt(yev))%*%t(yevec)   #½Ã±×¸¶yy^-1/2
+> s_yy_sq <- yevec%*%diag(1/sqrt(yev))%*%t(yevec)   #ì‹œê·¸ë§ˆyy^-1/2
 
 
 
-> solve(s_xx_sq%*%s_xx_sq)  #»©µµµÊ 
+> solve(s_xx_sq%*%s_xx_sq)  #ë¹¼ë„ë¨ 
 
 > solve(s_yy_sq%*%s_yy_sq) 
 
 
-#PPT A,B°è»ê
+#PPT A,Bê³„ì‚°
 
 > A<-s_xx_sq%*%s_xy%*%solve(s_yy)%*%s_yx%*%s_xx_sq
 
@@ -104,11 +104,11 @@ $vectors
 [3,] 0.06686964  0.9412301  0.3310805
 #f1..fp..fq
 
-#AÇà·Ä°ú BÇà·ÄÀÇ °íÀ¯°ªÀº µ¿ÀÏ
+#Aí–‰ë ¬ê³¼ Bí–‰ë ¬ì˜ ê³ ìœ ê°’ì€ ë™ì¼
 
 
-#Á¤ÁØ°è¼ö
-#alpha,beta °è»ê
+#ì •ì¤€ê³„ìˆ˜
+#alpha,beta ê³„ì‚°
 
 > alpha<-s_xx_sq%*%eigen(A)$vectors
 
@@ -124,7 +124,7 @@ $vectors
 
 [3,] -0.053120964  0.006447336  0.05245086
 
-#a1^TX=V1(Ã¹¹øÂ° Á¤ÁØº¯¼ö) #a2^TX=v2 #V3 
+#a1^TX=V1(ì²«ë²ˆì§¸ ì •ì¤€ë³€ìˆ˜) #a2^TX=v2 #V3 
 
 > beta
 
@@ -136,10 +136,10 @@ $vectors
 
 [3,] 0.02434304  0.441592020  0.15072041
 
-#B1^TY=w1(Ã¹¹øÂ° Á¤ÁØº¯¼ö) #w2 #w3
+#B1^TY=w1(ì²«ë²ˆì§¸ ì •ì¤€ë³€ìˆ˜) #w2 #w3
 
 
-#Á¤ÁØº¯¼ö 
+#ì •ì¤€ë³€ìˆ˜ 
 > v<-as.matrix(x)%*%alpha 
 
 [,1]       [,2]        [,3]
@@ -179,8 +179,8 @@ $vectors
 > cbind(v,w)
 
 
-#Á¤ÁØ»ó°ü°è¼ö = Àý´ñ°ªcorr(v1,w1)
-> round(cov(cbind(v,w)),3) #roundÇÔ¼ö·Î 3°³¸¸ º»°Í ¿ø·¡´Â round¾Æ´Ô
+#ì •ì¤€ìƒê´€ê³„ìˆ˜ = ì ˆëŒ“ê°’corr(v1,w1)
+> round(cov(cbind(v,w)),3) #roundí•¨ìˆ˜ë¡œ 3ê°œë§Œ ë³¸ê²ƒ ì›ëž˜ëŠ” roundì•„ë‹˜
 
 #      v1    v2     v3    w1    w2      w3
 
@@ -198,21 +198,21 @@ $vectors
 
 [6,]  0.000 0.000 -0.113  0.000 0.000  1.000 #w3
 
-#vÀÇ°øºÐ»ê0 ,ºÐ»ê1 #cov(v1,w1)=0.9,cov(v2,w2)=0.4 #cov(v3,w3)=0.113
+#vì˜ê³µë¶„ì‚°0 ,ë¶„ì‚°1 #cov(v1,w1)=0.9,cov(v2,w2)=0.4 #cov(v3,w3)=0.113
 
-> sqrt(eigen(A)$values)    #Á¤ÁØ»ó°ü°è¼ö °ª¸¸ Ãâ·Â 
+> sqrt(eigen(A)$values)    #ì •ì¤€ìƒê´€ê³„ìˆ˜ ê°’ë§Œ ì¶œë ¥ 
 
-[1] 0.9194120 0.4186491 0.1133658 #À§ÀÇ Á¤ÁØ»ó°ü°è¼ö¿Í °°¾ÆÁü
+[1] 0.9194120 0.4186491 0.1133658 #ìœ„ì˜ ì •ì¤€ìƒê´€ê³„ìˆ˜ì™€ ê°™ì•„ì§
 
 
 
-#°£´ÜÇÏ°Ô 
+#ê°„ë‹¨í•˜ê²Œ 
 library(CCA)
 
-cc(x,y) #Á¤ÁØ»ó°ü°è¼ö($cor)
+cc(x,y) #ì •ì¤€ìƒê´€ê³„ìˆ˜($cor)
 
 --------------------------------------
   
- #Á¤ÁØ°è¼ö 
+ #ì •ì¤€ê³„ìˆ˜ 
   
   
