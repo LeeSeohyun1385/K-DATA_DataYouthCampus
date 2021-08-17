@@ -1,13 +1,13 @@
-##±³Â÷°ËÁõ 
+##êµì°¨ê²€ì¦ 
 
 #Leave-one-out cross-validation 
 #M1<-lm(mpg~hp+wt, data=mtcars)
 #M2<-lm(mpg~hp+wt+disp+qsec, data=mtcars)
 
-> test.set <- mtcars[1,] #Æò°¡ÀÚ·á 
-> training.set <- mtcars[-1,] #ÈÆ·ÃÀÚ·á
+> test.set <- mtcars[1,] #í‰ê°€ìë£Œ 
+> training.set <- mtcars[-1,] #í›ˆë ¨ìë£Œ
 
-> reg <- lm(mpg~hp+wt, data=training.set) #È¸±ÍºĞ¼® 
+> reg <- lm(mpg~hp+wt, data=training.set) #íšŒê·€ë¶„ì„ 
 > reg
 
 Call:
@@ -17,13 +17,13 @@ Coefficients:
 (Intercept)           hp           wt  
    37.48509     -0.03207     -3.91826  
 
-#¿¹Ãø°ª
+#ì˜ˆì¸¡ê°’
 > pred.value <- reg$coefficient[1]+reg$coefficients[2]*test.set$hp+reg$coefficients[3]*test.set$wt
 > pred.value <- c(1,test.set$hp,test.set$wt)%*%reg$coefficients
 > pred.value <- predict(reg, newdata=test.set)
-   #´Ù °°Àº °ª (¾î´À°ÍÀ» ½áµµO)
+   #ë‹¤ ê°™ì€ ê°’ (ì–´ëŠê²ƒì„ ì¨ë„O)
    
-#¿¹Ãø¿ÀÂ÷ 
+#ì˜ˆì¸¡ì˜¤ì°¨ 
 > pred.error <- test.set$mpg-predict(reg, newdata=test.set) #e1
    
 > n<-dim(mtcars)[1]
@@ -35,13 +35,13 @@ Coefficients:
 +     pred.error <- test.set$mpg-predict(reg, newdata=test.set)
 +     pred.error.vec <- c(pred.error.vec, pred.error)}
    
-#ÇÏ³ªÇÏ³ª µ¹·ÁÁÙ °æ¿ì 
+#í•˜ë‚˜í•˜ë‚˜ ëŒë ¤ì¤„ ê²½ìš° 
 > i<-1
-#>À§ÇÔ¼ö µ¹·ÁÁÖ±â
-> pred.error.vec #Mazda RX4 :¿¹Ãø¿ÀÂ÷ 
+#>ìœ„í•¨ìˆ˜ ëŒë ¤ì£¼ê¸°
+> pred.error.vec #Mazda RX4 :ì˜ˆì¸¡ì˜¤ì°¨ 
 > i<-2
    
-#¿¹ÃøÆò°¡±âÁØ    
+#ì˜ˆì¸¡í‰ê°€ê¸°ì¤€    
 > press1<-sum(pred.error.vec^2)
 > press
    
@@ -53,9 +53,9 @@ Coefficients:
 +     pred.error <- test.set$mpg-predict(reg, newdata=test.set)
 +     pred.error.vec <- c(pred.error.vec, pred.error)}
 > press2<-sum(pred.error.vec^2) 
-#pressºñ±³: press°¡ ÀÛÀº ¸ğµ¨ÀÌ ´õ ÁÁÀº ¸ğÇü
+#pressë¹„êµ: pressê°€ ì‘ì€ ëª¨ë¸ì´ ë” ì¢‹ì€ ëª¨í˜•
 ---------------------------------------------
-#ÇÑ¹ø¿¡ 
+#í•œë²ˆì— 
 >n<-dim(mtcars)[1]
 >pred.error.mat <- c()
 >for(i in 1:n){
@@ -68,7 +68,7 @@ Coefficients:
      pred.error.mat <- rbind(pred.error.mat, c(pred.error1,pred.error2))
   }
 >pred.error.mat
->colSums(pred.error.mat^2) #¿¹ÃøÆò°¡
+>colSums(pred.error.mat^2) #ì˜ˆì¸¡í‰ê°€
 ----------------------------
      
 #Leave-p-out cross-validation
@@ -88,7 +88,7 @@ Coefficients:
 >pred.error.mat
 >colSums(pred.error.mat^2)
 ---------------------   
-#ÇÑ¹ø¿¡ 
+#í•œë²ˆì— 
 >n<-dim(mtcars)[1] 
 >p<-2 
 >r<-choose(n,p)
@@ -106,7 +106,7 @@ Coefficients:
 > i<-1 
 >pred.error.mat #M1 M2
    
-#Á¦°öÇÕÆò±Õ 
+#ì œê³±í•©í‰ê·  
 > acc1<-mean(rowSums(pred.error.mat[,1:2]^2))
 > acc2<-mean(rowSums(pred.error.mat[,3:4]^2))
  ----------------------------
@@ -115,8 +115,8 @@ Coefficients:
 > library(cvTools)   
    
 > n<-dim(mtcars)[1]
-> cvFolds(n,K=5,R=1,type="random")  #fold ¹øÈ£ , index: 1¹ø¿¡ 32¹øÀÌ ¹èÁ¤µÇ¾ú´Ù 
-> cvFolds(n,K=5,R=1,type="consecutive") #R¹Ù²Ü ¼ö ÀÖÀ½ 
+> cvFolds(n,K=5,R=1,type="random")  #fold ë²ˆí˜¸ , index: 1ë²ˆì— 32ë²ˆì´ ë°°ì •ë˜ì—ˆë‹¤ 
+> cvFolds(n,K=5,R=1,type="consecutive") #Rë°”ê¿€ ìˆ˜ ìˆìŒ 
 > cvFolds(n,K=5,R=1,type="interleaved")   
  
 > cross<-cvFolds(n,K=5,R=1,type="random")  
@@ -133,8 +133,8 @@ Coefficients:
 > i<-1
    
 >acc
->sum(acc) #ÀÌ °ªÀ» ºñ±³
-#M2¸ğÇü¿¡¼­    
+>sum(acc) #ì´ ê°’ì„ ë¹„êµ
+#M2ëª¨í˜•ì—ì„œ    
 > for(i in 1:5){
      test.set <- cross$subsets[which(cross$which==i),1]
      test.data<-mtcars[test.set,]
@@ -145,4 +145,4 @@ Coefficients:
 } 
    
 > acc1<-sum(acc) 
-> acc2<-sum(acc) #µÑÀ» ºñ±³ 
+> acc2<-sum(acc) #ë‘˜ì„ ë¹„êµ 
