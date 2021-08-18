@@ -1,13 +1,13 @@
 > import<-read.table("C:/Users/Lee seohyun/Desktop/import.txt",header=TRUE)
 > import<-import[,-1]
-> plot(import) #´ÙÁß°ø¼±¼º È®ÀÎ 
-> cor(import) #»ó°ü°è¼ö (¼±Çü°ü°è È®ÀÎ - 0.9972·Î 1¿¡ °¡±î¿ì¹Ç·Î ¼±Çü°ü°è°¡ °­ÇÏ´Ù.)
+> plot(import) #ë‹¤ì¤‘ê³µì„ ì„± í™•ì¸ 
+> cor(import) #ìƒê´€ê³„ìˆ˜ (ì„ í˜•ê´€ê³„ í™•ì¸ - 0.9972ë¡œ 1ì— ê°€ê¹Œìš°ë¯€ë¡œ ì„ í˜•ê´€ê³„ê°€ ê°•í•˜ë‹¤.)
 
 > MF<- lm(import~.,data=import)
 Call:
   lm(formula = import ~ ., data = import)
 
-Coefficients: #ÃßÁ¤°ª
+Coefficients: #ì¶”ì •ê°’
   (Intercept)       doprod        stock       consum  
 -10.1280      -0.0514       0.5869       0.2868  
 
@@ -24,31 +24,31 @@ Residuals:
 Coefficients:
               Estimate Std. Error t value Pr(>|t|)    
    (Intercept) -10.12799    1.21216  -8.355  6.9e-05 ***
-  doprod       -0.05140    0.07028  -0.731 0.488344   #-0.05140´Â ´ÙÁß°ø¼±¼º ¶§¹®¿¡ »ý±â´Â ¹®Á¦  
+  doprod       -0.05140    0.07028  -0.731 0.488344   #-0.05140ëŠ” ë‹¤ì¤‘ê³µì„ ì„± ë•Œë¬¸ì— ìƒê¸°ëŠ” ë¬¸ì œ  
   stock         0.58695    0.09462   6.203 0.000444 ***
   consum        0.28685    0.10221   2.807 0.026277 *  
   ---
-  Signif. codes:  0 ¡®***¡¯ 0.001 ¡®**¡¯ 0.01 ¡®*¡¯ 0.05 ¡®.¡¯ 0.1 ¡® ¡¯ 1
+  Signif. codes:  0 â€˜***â€™ 0.001 â€˜**â€™ 0.01 â€˜*â€™ 0.05 â€˜.â€™ 0.1 â€˜ â€™ 1
 
 Residual standard error: 0.4889 on 7 degrees of freedom
 Multiple R-squared:  0.9919,	Adjusted R-squared:  0.9884 
 F-statistic: 285.6 on 3 and 7 DF,  p-value: 1.112e-07
 
-> ols_coll_diag(MF) #´ÙÁß°ø¼±¼º ÆÇ´Ü (VIF) / doprod, consum ´ÙÁß°ø¼±¼º ¹®Á¦ 
-> Ddrop<- lm(import~stock+consum, data=import) # doprodÁ¦°Å(p-valueÀ¯ÀÇÇÏÁö ¾Ê±â ¶§¹®¿¡ )
-#Á¦°Å ÈÄ ols (Á¦°Å: µ¶¸³º¯¼öµéÀÇ ¼±Çüº¯È¯)
+> ols_coll_diag(MF) #ë‹¤ì¤‘ê³µì„ ì„± íŒë‹¨ (VIF) / doprod, consum ë‹¤ì¤‘ê³µì„ ì„± ë¬¸ì œ 
+> Ddrop<- lm(import~stock+consum, data=import) # doprodì œê±°(p-valueìœ ì˜í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì— )
+#ì œê±° í›„ ols (ì œê±°: ë…ë¦½ë³€ìˆ˜ë“¤ì˜ ì„ í˜•ë³€í™˜)
 
 ----------------
-#ÁÖ¼ººÐ ºÐ¼®
+#ì£¼ì„±ë¶„ ë¶„ì„
 
-#1´Ü°è : ÁÖ¼ººÐ ºÐ¼®
+#1ë‹¨ê³„ : ì£¼ì„±ë¶„ ë¶„ì„
 
-> pca <- prcomp(import[,-1],center=TRUE, scale=TRUE) #¼¾ÅÍ¸µ:Ç¥ÁØÈ­º¯È¯  
+> pca <- prcomp(import[,-1],center=TRUE, scale=TRUE) #ì„¼í„°ë§:í‘œì¤€í™”ë³€í™˜  
 > pca
 Standard deviations (1, .., p=3):
-  [1] 1.41391476 0.99907666 0.05187378 #ÁÖ¼ººÐÀÇ Ç¥ÁØÆíÂ÷ 
+  [1] 1.41391476 0.99907666 0.05187378 #ì£¼ì„±ë¶„ì˜ í‘œì¤€íŽ¸ì°¨ 
 
-Rotation (n x k) = (3 x 3): #ÁÖ¼ººÐÀ» ¸¸µé ¶§ »ç¿ëµÇ´Â Çà·Ä 
+Rotation (n x k) = (3 x 3): #ì£¼ì„±ë¶„ì„ ë§Œë“¤ ë•Œ ì‚¬ìš©ë˜ëŠ” í–‰ë ¬ 
               PC1         PC2          PC3 
 doprod 0.70633041 -0.03568867 -0.706982083
 stock  0.04350059  0.99902908 -0.006970795
@@ -58,27 +58,27 @@ consum 0.70654444 -0.02583046  0.707197102
 > summary(pca)
 Importance of components:
                        PC1    PC2     PC3
-Standard deviation     1.4139 0.9991 0.05187 #ÁÖ¼ººÐÀÇ Ç¥ÁØÆíÂ÷ 
-Proportion of Variance 0.6664 0.3327 0.00090 #ÁÖ¼ººÐÀÇ ¼³¸í·Â 
-Cumulative Proportion  0.6664 0.9991 1.00000 #´©Àû¼³¸í·Â (90%³Ñ´Â °ÍÀÌ µÎ°³°¡ ÀÖÀ¸¸é ±× Áß ÀÛÀº °Í °¡´ÉÇÑ Àû°Ô (ÀÛÀº°Í)¼±ÅÃ
-                                             #-ÁÖ¼ººÐÀÇ °³¼ö 2°³(90%¾È³Ñ´Â °Í°ú ³Ñ´Â °Í Áß ÀûÀº°Í)·Î ¼±ÅÃ)
+Standard deviation     1.4139 0.9991 0.05187 #ì£¼ì„±ë¶„ì˜ í‘œì¤€íŽ¸ì°¨ 
+Proportion of Variance 0.6664 0.3327 0.00090 #ì£¼ì„±ë¶„ì˜ ì„¤ëª…ë ¥ 
+Cumulative Proportion  0.6664 0.9991 1.00000 #ëˆ„ì ì„¤ëª…ë ¥ (90%ë„˜ëŠ” ê²ƒì´ ë‘ê°œê°€ ìžˆìœ¼ë©´ ê·¸ ì¤‘ ìž‘ì€ ê²ƒ ê°€ëŠ¥í•œ ì ê²Œ (ìž‘ì€ê²ƒ)ì„ íƒ
+                                             #-ì£¼ì„±ë¶„ì˜ ê°œìˆ˜ 2ê°œ(90%ì•ˆë„˜ëŠ” ê²ƒê³¼ ë„˜ëŠ” ê²ƒ ì¤‘ ì ì€ê²ƒ)ë¡œ ì„ íƒ)
 
-#ÁÖ¼ººÐ Á¡¼ö °è»ê
+#ì£¼ì„±ë¶„ ì ìˆ˜ ê³„ì‚°
 
 > predict(pca)
 
 > m<-2
-> v<-pca$rotation[,1:m] #Ç¥ÁØÈ­ º¯È¯
+> v<-pca$rotation[,1:m] #í‘œì¤€í™” ë³€í™˜
 > z<-scale(import[,-1])
-> z%*%v  #¾ÕÀÇ predict¿Í °°Àº °á°ú 
+> z%*%v  #ì•žì˜ predictì™€ ê°™ì€ ê²°ê³¼ 
 
-#2´Ü°è : È¸±ÍºÐ¼®
+#2ë‹¨ê³„ : íšŒê·€ë¶„ì„
 
 > pc.score<-predict(pca)
 > pc.import <- as.data.frame(cbind(scale(import$import),pc.score))
 > pc.import
 
-> pcr<-lm(V1~PC1+PC2+0,data=pc.import) #0:¿øÁ¡À» Áö³ª´Â ÇÔ¼ö 
+> pcr<-lm(V1~PC1+PC2+0,data=pc.import) #0:ì›ì ì„ ì§€ë‚˜ëŠ” í•¨ìˆ˜ 
 > pcr
 
 Call:
@@ -88,13 +88,13 @@ Coefficients:
   PC1     PC2  
 0.6900  0.1913  
 
-#3´Ü°è:¿ø µ¶¸³º¯¼ö¿¡ ´ëÇÑ ½ÄÀ¸·Î º¯È¯ 
-#ÃßÁ¤½Ä 1Â÷º¯È¯
+#3ë‹¨ê³„:ì› ë…ë¦½ë³€ìˆ˜ì— ëŒ€í•œ ì‹ìœ¼ë¡œ ë³€í™˜ 
+#ì¶”ì •ì‹ 1ì°¨ë³€í™˜
 > alpha<-pcr$coefficients
 > V<-pca$rotation[,1:m]
 > sbeta<-V%*%alpha
 > sbeta
-#ÃßÁ¤½Ä 2Â÷º¯È¯ 
+#ì¶”ì •ì‹ 2ì°¨ë³€í™˜ 
 > mean.import<-colMeans(import)
 > sd.import<-sqrt(diag(cov(import)))
 
