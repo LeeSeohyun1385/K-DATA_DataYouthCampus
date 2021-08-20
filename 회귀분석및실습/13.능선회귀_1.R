@@ -1,15 +1,15 @@
-> import<-read.table("C:/Users/Lee seohyun/Desktop/È¸±Í/import.txt",header=TRUE)
-> y.s <- scale(import[,2]) #ÀÚ·á y¸¦ Ç¥ÁØÈ­ º¯È¯
-> Z<- scale(import[,-(1:2)]) #¼³°èÇà·Ä Ç¥ÁØÈ­ º¯È¯ 
+> import<-read.table("C:/Users/Lee seohyun/Desktop/íšŒê·€/import.txt",header=TRUE)
+> y.s <- scale(import[,2]) #ìžë£Œ yë¥¼ í‘œì¤€í™” ë³€í™˜
+> Z<- scale(import[,-(1:2)]) #ì„¤ê³„í–‰ë ¬ í‘œì¤€í™” ë³€í™˜ 
 
-#´É¼±È¸±Í ÃßÁ¤°ª (´É¼±¸ð¼ö)
+#ëŠ¥ì„ íšŒê·€ ì¶”ì •ê°’ (ëŠ¥ì„ ëª¨ìˆ˜)
 > gamma<-1
 > b.ridge <- solve(t(Z)%*%Z+diag(rep(gamma,3)))%*%t(Z)%*%y.s
-#´É¼±ÃßÁ¤·®ÀÇ Ç¥º»Æò±Õ, Ç¥ÁØÆíÂ÷
+#ëŠ¥ì„ ì¶”ì •ëŸ‰ì˜ í‘œë³¸í‰ê· , í‘œì¤€íŽ¸ì°¨
 > mu<- colMeans(import)
 > sd<- sqrt(diag(cov(import)))
 
-#¿ø·¡ È¸±Í°è¼ö ÃßÁ¤°ª 
+#ì›ëž˜ íšŒê·€ê³„ìˆ˜ ì¶”ì •ê°’ 
 > beta.est <- b.ridge*sd[2]/sd[3:5] #b1.b2...
 > beta.est
 [,1]
@@ -20,20 +20,20 @@ consum 0.10597675
 > beta0
 [,1]
 [1,] -7.618359
-#¿ø·¡ È¸±Í°è¼ö, °ü°è½Ä °è»ê°¡´É 
+#ì›ëž˜ íšŒê·€ê³„ìˆ˜, ê´€ê³„ì‹ ê³„ì‚°ê°€ëŠ¥ 
 #y^= -7.618 + 0.06doprod + 0.55stock + 0.1consum 
 
 
 ----------------------
-> b.ridge <- c() #ÃßÁ¤°ªÀÌ ÀúÀåµÉ Àå¼Ò¸¦ ÁöÁ¤ 
-> ridge.par <- seq(0,10,by=0.01) #´É¼± ¸ð¼ö°ªÀ¸·Î »ç¿ëÇÒ °ª ÁöÁ¤
+> b.ridge <- c() #ì¶”ì •ê°’ì´ ì €ìž¥ë  ìž¥ì†Œë¥¼ ì§€ì • 
+> ridge.par <- seq(0,10,by=0.01) #ëŠ¥ì„  ëª¨ìˆ˜ê°’ìœ¼ë¡œ ì‚¬ìš©í•  ê°’ ì§€ì •
 > gam<-1.0
 > for(gam in ridge.par){
-   est<-solve(t(Z)%*%Z+gam*diag(rep(1,3)))%*%t(Z)%*%y.s #´É¼±¸ð¼ö
+   est<-solve(t(Z)%*%Z+gam*diag(rep(1,3)))%*%t(Z)%*%y.s #ëŠ¥ì„ ëª¨ìˆ˜
    b.ridge <- rbind(b.ridge,t(est))
    }
 > b.ridge
-#°¡·ÎÁÙ °¨¸¶, °¨¸¶¿¡ ´ëÇÑ È¸±Í°è¼öÀÇ ÃßÁ¤°ª 
+#ê°€ë¡œì¤„ ê°ë§ˆ, ê°ë§ˆì— ëŒ€í•œ íšŒê·€ê³„ìˆ˜ì˜ ì¶”ì •ê°’ 
 doprod     stock    consum
 [1,] -0.339342628 0.2130484 1.3026815
 [2,] -0.117445843 0.2150324 1.0802416
@@ -41,29 +41,29 @@ doprod     stock    consum
 [4,]  0.092149232 0.2166923 0.8696328
 [5,]  0.149852919 0.2170584 0.8114372
 [6,]  0.192489702 0.2172765 0.7683136
-#±×¸²
+#ê·¸ë¦¼
 > plot(ridge.par,b.ridge[,1],ylab="ridge estimate",ylim=c(-0.5,1.5),type="1")
 > lines(ridge.par,b.ridge[,3],col="red")
 > lines(ridge.par,b.ridge[,2],col="blue")
 > abline(h=0,lty=2)
 
-###±³Â÷°ËÁõ ÀÌ¿ëÇÑ ¼±ÅÃ 
+###êµì°¨ê²€ì¦ ì´ìš©í•œ ì„ íƒ 
 > library(cvTools)
 > n <- nrow(import)
-> n.fold <-5 #foldÀÇ °³¼ö 
+> n.fold <-5 #foldì˜ ê°œìˆ˜ 
 
-> cross <- cvFolds(n,K=n.fold, R=1, type = "random") #fold³ª´©±â
+> cross <- cvFolds(n,K=n.fold, R=1, type = "random") #foldë‚˜ëˆ„ê¸°
 
 > ridge.par <- seq(0, 1, by=0.1)
 > SS.result <- c()
->SS<-0 #½ÃÀÛ°ª
+>SS<-0 #ì‹œìž‘ê°’
 
-test.set #cross¿¡¼­ Fold°¡ 1¹øÀÎ °Í¸¸ °¡Áö°í ¿À´Â °Í
-test.X #¹øÈ£°¡ ¼ÓÇÑ °Í 
-train.X#³ª¸ÓÁö ¹øÈ£µé 
-b#ridge parameterÀÇ ÃßÁ¤°ª 
-pred.err #¿¹Ãø°ª 
-SS#Á¦°öÀÇ Æò±Õ 
+test.set #crossì—ì„œ Foldê°€ 1ë²ˆì¸ ê²ƒë§Œ ê°€ì§€ê³  ì˜¤ëŠ” ê²ƒ
+test.X #ë²ˆí˜¸ê°€ ì†í•œ ê²ƒ 
+train.X#ë‚˜ë¨¸ì§€ ë²ˆí˜¸ë“¤ 
+b#ridge parameterì˜ ì¶”ì •ê°’ 
+pred.err #ì˜ˆì¸¡ê°’ 
+SS#ì œê³±ì˜ í‰ê·  
 SS.result #
 >for(gam in ridge.par){
    test.set <- cross$subsets[which(cross$which==i),1]
@@ -71,18 +71,18 @@ SS.result #
    train.X <- Z[-test.set];train.y <- y.s[-test.set]
    b<- solve(t(train.X))
 --------
-#glmnetÀÌ¿ëÇÑ ÃßÁ¤°ª °è»ê, ±³Â÷°ËÁõ
+#glmnetì´ìš©í•œ ì¶”ì •ê°’ ê³„ì‚°, êµì°¨ê²€ì¦
 library(glmnet)
 X.mat <- as.matrix(import[,-(1:2)])
 y.vec <- as.vector(import[,2])
 glm.result <- glmnet(X.mat, y.vec, family="gaussian",alpha=0,lamda=ridge.par, standarize=TRUE, intercept=TRUE)
-#Df:µ¶¸³º¯¼ö Áß 0ÀÌ¾Æ´Ñ °ÍÀÇ °³¼ö, Lamda: °è»êÇÑ ¶÷´Ù °ª
+#Df:ë…ë¦½ë³€ìˆ˜ ì¤‘ 0ì´ì•„ë‹Œ ê²ƒì˜ ê°œìˆ˜, Lamda: ê³„ì‚°í•œ ëžŒë‹¤ ê°’
 
-glm.result$beta #ÃßÁ¤°ª (1.0, 0.9, 0.8 ¼øÀÇ °¨¸¶¿¡ ´ëÇÑ ¸ÅÄª)
-glm.result$a0 #»ó¼öÇ× 
-#¿ø º¯¼ö¿¡ ´ëÇÑ ½Ä (ÁÙ ³¢¸® ½Ä °è»ê °¡´É)
+glm.result$beta #ì¶”ì •ê°’ (1.0, 0.9, 0.8 ìˆœì˜ ê°ë§ˆì— ëŒ€í•œ ë§¤ì¹­)
+glm.result$a0 #ìƒìˆ˜í•­ 
+#ì› ë³€ìˆ˜ì— ëŒ€í•œ ì‹ (ì¤„ ë¼ë¦¬ ì‹ ê³„ì‚° ê°€ëŠ¥)
 #y^ = -5.8 + 0.06D + 0.5S + 0.09C
 
-> cv <- cv.glmnet(X.mat, y.vec, lamda=ridge.par,alpha=0, nfolds=3) #°¢°¢ÀÇ fold¸¶´Ù ¼ÓÇØÀÖ´Â µ¥ÀÌÅÍÀÇ °³¼ö=3
-> cv$cvm #¿¹Ãø¿ÀÂ÷ÀÇ Æò±Õ (ÀÌ °ªÀ¸·Î ÆÇ´Ü)
+> cv <- cv.glmnet(X.mat, y.vec, lamda=ridge.par,alpha=0, nfolds=3) #ê°ê°ì˜ foldë§ˆë‹¤ ì†í•´ìžˆëŠ” ë°ì´í„°ì˜ ê°œìˆ˜=3
+> cv$cvm #ì˜ˆì¸¡ì˜¤ì°¨ì˜ í‰ê·  (ì´ ê°’ìœ¼ë¡œ íŒë‹¨)
 > plot(cv$lamda, cv$cvm)
