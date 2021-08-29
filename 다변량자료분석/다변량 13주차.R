@@ -1,21 +1,21 @@
 > data(iris)
 > head(iris)
-> plot(iris[,-5],col=c("blue","red","green")[iris[,5]]) #¹ÝÀÀº¯¼ö(Species)¸¦ »« ¹ÝÀÀº¯¼ö¿¡ ´ëÇÑ »êÁ¡µµ
-> plot(iris[,2:3],col=c("blue","red","green")[iris[,5]]) #µÎ¹øÂ°¿Í ¼¼¹øÂ° ÆÇº°º¯¼öÀÇ »êÁ¡µµ 
+> plot(iris[,-5],col=c("blue","red","green")[iris[,5]]) #ë°˜ì‘ë³€ìˆ˜(Species)ë¥¼ ëº€ ë°˜ì‘ë³€ìˆ˜ì— ëŒ€í•œ ì‚°ì ë„
+> plot(iris[,2:3],col=c("blue","red","green")[iris[,5]]) #ë‘ë²ˆì§¸ì™€ ì„¸ë²ˆì§¸ íŒë³„ë³€ìˆ˜ì˜ ì‚°ì ë„ 
 -------------------
-  > x<-c(60,22,50,15) #Á¡ ¼³Á¤ #»õ·Î¿î °üÃø°ª ¼³Á¤ 
+  > x<-c(60,22,50,15) #ì  ì„¤ì • #ìƒˆë¡œìš´ ê´€ì¸¡ê°’ ì„¤ì • 
   > iris.set<-subset(iris,iris[,5]=="setosa")
   > iris.ver<-subset(iris,iris[,5]=="versicolor")
-  > iris.vir<-subset(iris,iris[,5]=="virginica") #3°¡Áö ±×·ìÀ¸·Î ºÐ·ù
+  > iris.vir<-subset(iris,iris[,5]=="virginica") #3ê°€ì§€ ê·¸ë£¹ìœ¼ë¡œ ë¶„ë¥˜
   
-  > mean.set<-colMeans(iris.set[,-5])   #±×·ìº° Ç¥º» Æò±Õ 
-  > cov.set<-cov(iris.set[,-5])     #±×·ìº° Ç¥º» °øºÐ»ê
+  > mean.set<-colMeans(iris.set[,-5])   #ê·¸ë£¹ë³„ í‘œë³¸ í‰ê·  
+  > cov.set<-cov(iris.set[,-5])     #ê·¸ë£¹ë³„ í‘œë³¸ ê³µë¶„ì‚°
   > mean.ver<-colMeans(iris.ver[,-5])
   > cov.ver<-cov(iris.ver[,-5])
   > mean.vir<-colMeans(iris.vir[,-5])
   > cov.vir<-cov(iris.vir[,-5])
   
-  #¸¶ÇÒ¶ó³ëºñ½º °Å¸® 
+  #ë§ˆí• ë¼ë…¸ë¹„ìŠ¤ ê±°ë¦¬ 
   > t(x-mean.set)%*%solve(cov.set)%*%(x-mean.set)
   > t(x-mean.ver)%*%solve(cov.ver)%*%(x-mean.ver)
   > t(x-mean.vir)%*%solve(cov.vir)%*%(x-mean.vir)
@@ -23,13 +23,13 @@
   > mahalanobis(x, center=mean.set, cov=cov.set)
   > mahalanobis(x, center=mean.ver, cov=cov.ver)
   > mahalanobis(x, center=mean.vir, cov=cov.vir)
-  #À§¿Í °°Àº °ª (¸¶ÇÒ¶ó³ëºñ½º)^2ÀÇ °ª
+  #ìœ„ì™€ ê°™ì€ ê°’ (ë§ˆí• ë¼ë…¸ë¹„ìŠ¤)^2ì˜ ê°’
   
   ------------------------------------
     #LDA
-    #ÇÕµ¿Ç¥º»°øºÐ»ê(°¢°¢ÀÇ °øºÐ»êÇà·ÄÀÇ Æò±Õ)                                                          #n-g
+    #í•©ë™í‘œë³¸ê³µë¶„ì‚°(ê°ê°ì˜ ê³µë¶„ì‚°í–‰ë ¬ì˜ í‰ê· )                                                          #n-g
     > S.p<-(cov.set*(nrow(iris.set)-1)+cov.ver*(nrow(iris.ver)-1)+cov.vir*(nrow(iris.vir)-1))/(nrow(iris)-3)
-    #¸¶ÇÒ¶ó³ëºñ½º(ÃÖ¼Ò°¡ µÇ´Â ±×·ì)
+    #ë§ˆí• ë¼ë…¸ë¹„ìŠ¤(ìµœì†Œê°€ ë˜ëŠ” ê·¸ë£¹)
     > mahalanobis(x,center=mean.set, cov=S.p)
     [1] 220.5132
     > mahalanobis(x,center=mean.ver, cov=S.p)
@@ -38,9 +38,9 @@
     [1] 192.9264
     
     > mean<-mean.set
-    #Lg(x):¼±ÇüÆÇº°ÇÔ¼ö 
+    #Lg(x):ì„ í˜•íŒë³„í•¨ìˆ˜ 
     > L <- t(mean)%*%solve(S.p)%*%x - 0.5*t(mean)%*%solve(S.p)%*%mean     
-    > (mahalanobis(x,center=mean, cov=S.p)-t(x)%*%solve(S.p)%*%x)/(-2)  #À§¿Í °°Àº °ª 
+    > (mahalanobis(x,center=mean, cov=S.p)-t(x)%*%solve(S.p)%*%x)/(-2)  #ìœ„ì™€ ê°™ì€ ê°’ 
     
     > mean<-mean.ver
     > L <- t(mean)%*%solve(S.p)%*%x - 0.5*t(mean)%*%solve(S.p)%*%mean
@@ -50,33 +50,33 @@
     > mean<-mean.vir
     > L <- t(mean)%*%solve(S.p)%*%x - 0.5*t(mean)%*%solve(S.p)%*%mean
     > (mahalanobis(x,center=mean, cov=S.p)-t(x)%*%solve(S.p)%*%x)/(-2)
-    #LÀ» º¸°í ÃÖ´ëÀÎ ±×·ì ±¸ÇÒ ¼ö ÀÖÀ½ (virÀÌ ÃÖ´ë)
-    #LÃÖ´ë /  ¾Æ±î ±¸ÇÑ ¸¶ÇÒ¶ó³ëºñ½º°¡ ÃÖ¼Ò 
+    #Lì„ ë³´ê³  ìµœëŒ€ì¸ ê·¸ë£¹ êµ¬í•  ìˆ˜ ìžˆìŒ (virì´ ìµœëŒ€)
+    #LìµœëŒ€ /  ì•„ê¹Œ êµ¬í•œ ë§ˆí• ë¼ë…¸ë¹„ìŠ¤ê°€ ìµœì†Œ 
     
     ------------------------
-      #14ÁÖÂ÷ R ½Ç½À
+      #14ì£¼ì°¨ R ì‹¤ìŠµ
       > library(MASS)
     
-    #ÆÇº°ºÐ¼® 
-    #Ã¹¹øÂ°
+    #íŒë³„ë¶„ì„ 
+    #ì²«ë²ˆì§¸
     > DA1<-lda(Species~., data=iris, prior=c(1/3,1/3,1/3))
-    #~.³ª¸ÓÁö µ¶¸³º¯¼ö ¸ðµÎ È¸±ÍºÐ¼®ÀÌ¶ó´Â ¶æ
-    #°¢ ²ÉÀÇ Á¾·ù¿¡ 1/3»çÀüÈ®·üÀ» ÁÖ´Â °Í(1/2,1/4,1/4·Î ´Ù¸£°Ô ÁöÁ¤ °¡´É)
+    #~.ë‚˜ë¨¸ì§€ ë…ë¦½ë³€ìˆ˜ ëª¨ë‘ íšŒê·€ë¶„ì„ì´ë¼ëŠ” ëœ»
+    #ê° ê½ƒì˜ ì¢…ë¥˜ì— 1/3ì‚¬ì „í™•ë¥ ì„ ì£¼ëŠ” ê²ƒ(1/2,1/4,1/4ë¡œ ë‹¤ë¥´ê²Œ ì§€ì • ê°€ëŠ¥)
     > DA1
     Call:
       lda(Species ~ ., data = iris, prior = c(1/3, 1/3, 1/3))
     
-    Prior probabilities of groups: #»çÀüÈ®·ü
+    Prior probabilities of groups: #ì‚¬ì „í™•ë¥ 
       setosa versicolor  virginica 
     0.3333333  0.3333333  0.3333333 
     
-    Group means: #±×·ìº° ÆÇº°º¯¼öÀÇ Ç¥º»Æò±Õ (Áß½ÉÀ§Ä¡°¡ °¢°¢ ´Ù¸£´Ù)
+    Group means: #ê·¸ë£¹ë³„ íŒë³„ë³€ìˆ˜ì˜ í‘œë³¸í‰ê·  (ì¤‘ì‹¬ìœ„ì¹˜ê°€ ê°ê° ë‹¤ë¥´ë‹¤)
       Sepal.Length Sepal.Width Petal.Length Petal.Width
     setosa            5.006       3.428        1.462       0.246
     versicolor        5.936       2.770        4.260       1.326
     virginica         6.588       2.974        5.552       2.026
     
-    Coefficients of linear discriminants: #¼ö¾÷¿¡ ¼³¸í X(»ý·«)
+    Coefficients of linear discriminants: #ìˆ˜ì—…ì— ì„¤ëª… X(ìƒëžµ)
       LD1         LD2
     Sepal.Length  0.8293776  0.02410215
     Sepal.Width   1.5344731  2.16452123
@@ -87,38 +87,38 @@
       LD1    LD2 
     0.9912 0.0088 
     
-    #¿¹Ãø°ª(ºÐ·ù°á°ú °è»ê)
-    >PA1 <- predict(DA1) #$posterior:»çÈÄÈ®·ü(ÃÖ´ë°¡ µÇ´Â ±×·ì¿¡ ºÐ·ù(¸î¹ø µ¥ÀÌÅÍ ¿¡¼­))/yi^ÀÌ¶ó°í º¸¸éµÊ
+    #ì˜ˆì¸¡ê°’(ë¶„ë¥˜ê²°ê³¼ ê³„ì‚°)
+    >PA1 <- predict(DA1) #$posterior:ì‚¬í›„í™•ë¥ (ìµœëŒ€ê°€ ë˜ëŠ” ê·¸ë£¹ì— ë¶„ë¥˜(ëª‡ë²ˆ ë°ì´í„° ì—ì„œ))/yi^ì´ë¼ê³  ë³´ë©´ë¨
     > predict(DA1)$posterior 
-    #ºÐ·ù°á°úÇ¥ 
+    #ë¶„ë¥˜ê²°ê³¼í‘œ 
     > table(iris$Species, PA1$class)
     
-    setosa versicolor virginica  #µÚ¿¡ÀÖ´Â º¯¼ö(PA1$class)
-    setosa         50          0         0  #¿ø·¡ ¼¼Åä»ç·Î ºÐ·ùµÇ¾îÀÖ´Â °ªÀÌ 50°³ ³ª¸ÓÁö´Â ¾ø´Ù 
-    versicolor      0         48         2  #½ÇÁ¦·Î´Â ¹ö½¬ÄÃ·¯¿¡ ¼ÓÇÏ´Â °ÍÀÎµ¥ ¼¼Åä»ç·Î´Â 0°³ ¹ö½ÃÄÃ·¯·Î´Â 48°³, ¹öÁö´ÏÄ«·Î 2°³·Î ºÐ·ù 
+    setosa versicolor virginica  #ë’¤ì—ìžˆëŠ” ë³€ìˆ˜(PA1$class)
+    setosa         50          0         0  #ì›ëž˜ ì„¸í† ì‚¬ë¡œ ë¶„ë¥˜ë˜ì–´ìžˆëŠ” ê°’ì´ 50ê°œ ë‚˜ë¨¸ì§€ëŠ” ì—†ë‹¤ 
+    versicolor      0         48         2  #ì‹¤ì œë¡œëŠ” ë²„ì‰¬ì»¬ëŸ¬ì— ì†í•˜ëŠ” ê²ƒì¸ë° ì„¸í† ì‚¬ë¡œëŠ” 0ê°œ ë²„ì‹œì»¬ëŸ¬ë¡œëŠ” 48ê°œ, ë²„ì§€ë‹ˆì¹´ë¡œ 2ê°œë¡œ ë¶„ë¥˜ 
     virginica       0          1        49
-    #¾Õ¿¡ÀÖ´Â º¯¼ö(iris$Species) °­ÀÇ ³ëÆ®¿Í ¹Ý´ë
-    #(½ÇÁ¦ ¿ÀºÐ·ù 3°³) : AER= 3/150(¿ø·¡ °³¼ö)
+    #ì•žì—ìžˆëŠ” ë³€ìˆ˜(iris$Species) ê°•ì˜ ë…¸íŠ¸ì™€ ë°˜ëŒ€
+    #(ì‹¤ì œ ì˜¤ë¶„ë¥˜ 3ê°œ) : AER= 3/150(ì›ëž˜ ê°œìˆ˜)
     
-    #¿ÀºÐ·ù AER¸¸ °è»ê
+    #ì˜¤ë¶„ë¥˜ AERë§Œ ê³„ì‚°
     library(biotools)
     > aer(iris$Species,PA1$class)
     
-    #2¹øÂ° 
+    #2ë²ˆì§¸ 
     #training sample 
-    > train<- sample(1:150,75) #·£´ýÇÏ°Ô 75°³ »ÌÀº °á°úÀÇ ¹øÈ£ 
+    > train<- sample(1:150,75) #ëžœë¤í•˜ê²Œ 75ê°œ ë½‘ì€ ê²°ê³¼ì˜ ë²ˆí˜¸ 
     > train
     
     > DA2<-lda(Species~., data=iris, subset=train, prior=c(1/3,1/3,1/3))
     > DA2
     
     > PA2 <- predict(DA2)
-    predict(DA2)$posterior   #»çÈÄÈ®·ü 
+    predict(DA2)$posterior   #ì‚¬í›„í™•ë¥  
     
     > PA2
     
-    #»õ·Î¿î µ¥ÀÌÅÍ¼Â
-    > PA2<-predict(DA2, newdata=iris[-train,])#º§¸®µ¥ÀÌ¼Ç ¼Â¸¸ °¡Áö°í ¿Â °Í(-train)#75°³
+    #ìƒˆë¡œìš´ ë°ì´í„°ì…‹
+    > PA2<-predict(DA2, newdata=iris[-train,])#ë²¨ë¦¬ë°ì´ì…˜ ì…‹ë§Œ ê°€ì§€ê³  ì˜¨ ê²ƒ(-train)#75ê°œ
     predict(DA2, newdata=iris[-train,])$posterior
     > table(iris$Species[-train],PA2$class)
     
@@ -130,11 +130,11 @@
     > aer(iris$Species[-train],PA2$class)
     [1] 0.02666667
     
-    #3¹øÂ°
-    #jackknife±â¹ý 
+    #3ë²ˆì§¸
+    #jackknifeê¸°ë²• 
     > DA3<- lda(Species~.,data=iris, prior=c(1/3,1/3,1/3),CV=TRUE)
     
-    #°á°ú ºñ±³ 
+    #ê²°ê³¼ ë¹„êµ 
     > head(DA3$posterior)
     setosa   versicolor    virginica
     1      1 5.087494e-22 4.385241e-42
@@ -157,15 +157,15 @@
     setosa         50          0         0
     versicolor      0         48         2
     virginica       0          1        49
-    #¿ÀºÐ·ù : 3/150 (ÀÛÀ¸¸é ºÐ·ù°¡ Àß µÈ °Í)
+    #ì˜¤ë¶„ë¥˜ : 3/150 (ìž‘ìœ¼ë©´ ë¶„ë¥˜ê°€ ìž˜ ëœ ê²ƒ)
     
-    #lda´ë½Å qda ÀÌ¿ëÇØµµ µÊ 
+    #ldaëŒ€ì‹  qda ì´ìš©í•´ë„ ë¨ 
     
     
     > lda(Species~., data=iris)
     > lda(iris[,-5],group=iris[,5])
-    #µÎ°³´Ù »ç¿ë °¡´É 
+    #ë‘ê°œë‹¤ ì‚¬ìš© ê°€ëŠ¥ 
     
-    #±×¸²±×·Áº¸±â 
+    #ê·¸ë¦¼ê·¸ë ¤ë³´ê¸° 
     > library(klaR)
     > partimat(Species~.,data=iris,method="lda")
