@@ -1,16 +1,16 @@
 #2-3(1)
 
-> s<-matrix(c(10000,60,60,1),ncol=2) #°øºÐ»ê Çà·Ä 
+> s<-matrix(c(10000,60,60,1),ncol=2) #ê³µë¶„ì‚° í–‰ë ¬ 
 > s
 [,1] [,2]
 [1,] 10000   60
 [2,]    60    1
 
 
-r <- cov2cor(s) #°øºÐ»êÇà·ÄÀ» ÀÌ¿ëÇÑ »ó°ü°è¼ö Çà·Ä
+r <- cov2cor(s) #ê³µë¶„ì‚°í–‰ë ¬ì„ ì´ìš©í•œ ìƒê´€ê³„ìˆ˜ í–‰ë ¬
 
 #(2)
-> eigen(s)   #°íÀ¯°ª°ú °íÀ¯º¤ÅÍ ±¸ÇÏ±â 
+> eigen(s)   #ê³ ìœ ê°’ê³¼ ê³ ìœ ë²¡í„° êµ¬í•˜ê¸° 
 eigen() decomposition
 $values
 [1] 10000.360023     0.639977
@@ -20,7 +20,7 @@ $vectors
 [1,] -0.999981998  0.006000276
 [2,] -0.006000276 -0.999981998
 
-> V<-(-1)*eigen(s)$vectors #°íÀ¯º¤ÅÍ¸¦ ¾ç¼ö·Î ¸¸µé¾îÁÖ±â
+> V<-(-1)*eigen(s)$vectors #ê³ ìœ ë²¡í„°ë¥¼ ì–‘ìˆ˜ë¡œ ë§Œë“¤ì–´ì£¼ê¸°
 
 > prcomp(s, center=TRUE, scale=FALSE)
 > s.pca<- prcomp(s, center=TRUE, scale=FALSE)
@@ -97,7 +97,7 @@ Proportion of Variance 0.8775 0.1225 0.000e+00
 Cumulative Proportion  0.8775 1.0000 1.000e+00
 
 #2-5
-> data <- read.table("C:/Users/ÀÌ¼­Çö/Desktop/data.txt",header=TRUE)
+> data <- read.table("C:/Users/ì´ì„œí˜„/Desktop/data.txt",header=TRUE)
 > data
 pop school employ service house
 1  5700   12.8   2500     270 25000
@@ -149,7 +149,7 @@ Proportion of Variance 9.264e-01 7.363e-02     0    0 0.000e+00
 Cumulative Proportion  9.264e-01 1.000e+00     1    1 1.000e+00
 
 #(2)
-> prcomp(s, center=TRUE, scale=TRUE) #scale = TRUE ÇØÁÜÀ¸·Î½á Ç¥ÁØÈ­ ÁÖ¼ººÐ ºÐ¼® ½Ç½Ã 
+> prcomp(s, center=TRUE, scale=TRUE) #scale = TRUE í•´ì¤Œìœ¼ë¡œì¨ í‘œì¤€í™” ì£¼ì„±ë¶„ ë¶„ì„ ì‹¤ì‹œ 
 Standard deviations (1, .., p=5):
   [1] 1.746121e+00 1.396709e+00 1.597573e-02 3.093809e-03 1.034261e-16
 
@@ -168,4 +168,4 @@ Standard deviation     1.7461 1.3967 0.01598 0.003094 1.034e-16
 Proportion of Variance 0.6098 0.3902 0.00005 0.000000 0.000e+00
 Cumulative Proportion  0.6098 1.0000 1.00000 1.000000 1.000e+00
  #(3)
-#Ç¥ÁØÈ­ ÇÏ±âÀü¿¡´Â ¼Ò¼öÁ¡ÀÌ º¹ÀâÇÑ PC1µîÀÌ ³ª¿ÀÁö¸¸ Ç¥ÁØÈ­¸¦ ÇÑ ÈÄ¿¡´Â °£´ÜÇÑ ¼ýÀÚ°¡ ³ª¿Â´Ù. 
+#í‘œì¤€í™” í•˜ê¸°ì „ì—ëŠ” ì†Œìˆ˜ì ì´ ë³µìž¡í•œ PC1ë“±ì´ ë‚˜ì˜¤ì§€ë§Œ í‘œì¤€í™”ë¥¼ í•œ í›„ì—ëŠ” ê°„ë‹¨í•œ ìˆ«ìžê°€ ë‚˜ì˜¨ë‹¤. 
