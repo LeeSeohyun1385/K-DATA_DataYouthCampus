@@ -1,4 +1,4 @@
-# ¿¹Á¦: ÄÚ°ñÀÌ¿Í ½ÉÀåº´¿¡ °üÇÑ ¿¬±¸
+# ì˜ˆì œ: ì½”ê³¨ì´ì™€ ì‹¬ìž¥ë³‘ì— ê´€í•œ ì—°êµ¬
 
 Heart <- read.table("http://www.stat.ufl.edu/~aa/cat/data/Heart.dat", 
 	header = TRUE)
@@ -6,15 +6,15 @@ Heart <- read.table("http://www.stat.ufl.edu/~aa/cat/data/Heart.dat",
 Heart
 
 str(Heart)
-#24/1379 / 35/638 : »ó´ëÀûÀ§Çèµµ
+#24/1379 / 35/638 : ìƒëŒ€ì ìœ„í—˜ë„
 
 install.packages("dplyr")
 
 library(dplyr)
-                 #Heart$¹üÁÖ(ÄÚ°í´ÂÁ¤µµ) / x= 0,2,4,5 :¹üÁÖ¿¡ ´ëÇÑ Á¡¼ö ÇÒ´ç
+                 #Heart$ë²”ì£¼(ì½”ê³ ëŠ”ì •ë„) / x= 0,2,4,5 :ë²”ì£¼ì— ëŒ€í•œ ì ìˆ˜ í• ë‹¹
 Heart$x <- recode(Heart$snoring, never = 0, occasional = 2, 
 	nearly_every_night = 4, every_night = 5)
-#x¶ó´Â º¯¼ö·Î º¯È¯
+#xë¼ëŠ” ë³€ìˆ˜ë¡œ ë³€í™˜
 Heart$x
 Heart
 #n
@@ -22,28 +22,28 @@ Heart$n <- Heart$yes + Heart$no
 
 Heart
 #24/1379
-#¿©±â±îÁö°¡ µ¥ÀÌÅÍ¸¦ ¼ÂÇØÁØ °Í 
+#ì—¬ê¸°ê¹Œì§€ê°€ ë°ì´í„°ë¥¼ ì…‹í•´ì¤€ ê²ƒ 
 
-#¼±ÇüÈ®·ü¸ðÇüÀûÇÕ (³»°¡Ãß°¡ÇÔ)
+#ì„ í˜•í™•ë¥ ëª¨í˜•ì í•© (ë‚´ê°€ì¶”ê°€í•¨)
 fit1<- glm(yes / n ~ x, family = quasi(link = identity, variance = "mu(1-mu)"),
             weights = n, data = Heart)
 
 summary(fit1)
 
 
-#·ÎÁö½ºÆ½È¸±Í¸ðÇü
-#¸ðÇüÀûÇÕ (ÀýÆí±â¿ï±â ÃßÁ¤-> ÀûÇÕ°ª ¾òÀ½)
+#ë¡œì§€ìŠ¤í‹±íšŒê·€ëª¨í˜•
+#ëª¨í˜•ì í•© (ì ˆíŽ¸ê¸°ìš¸ê¸° ì¶”ì •-> ì í•©ê°’ ì–»ìŒ)
 fit <- glm(yes / n ~ x, family=binomial(link=logit), weights = n, data = Heart) 
-#nÀüÃ¼ ´ë»óÀÚ¼ö,  yes/n:½ÉÀåº´ ¾Î°í´Â »ç¶÷µé,x:ÃßÁ¤±â´ñ°ª 
+#nì „ì²´ ëŒ€ìƒìžìˆ˜,  yes/n:ì‹¬ìž¥ë³‘ ì•“ê³ ëŠ” ì‚¬ëžŒë“¤,x:ì¶”ì •ê¸°ëŒ“ê°’ 
 
 
 summary(fit)
-#ÀûÇÕ°á°ú
-#ÀýÆí, ±â¿ï±âÀÇ ÃßÁ¤°ª
-#residual:ÀÜÂ÷
+#ì í•©ê²°ê³¼
+#ì ˆíŽ¸, ê¸°ìš¸ê¸°ì˜ ì¶”ì •ê°’
+#residual:ìž”ì°¨
 
 
-#¼±ÇüÈ®·ü¸ðÇü ÀûÇÕ½ÃÅ°·Á¸é (°­ÀÇ¿¡¼­)
+#ì„ í˜•í™•ë¥ ëª¨í˜• ì í•©ì‹œí‚¤ë ¤ë©´ (ê°•ì˜ì—ì„œ)
 fit2 <- glm(yes / n ~ x, family = quasi(link = identity, variance = "mu(1-mu)"),
 	weights = n, data = Heart)
 
