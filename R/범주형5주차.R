@@ -1,25 +1,25 @@
 
-# ¿¹Á¦: ¾ÏÂü°Ô¿Í ºÎ¼öÃ¼¿¡ °üÇÑ ¿¬±¸ (p. 98)
+# ì˜ˆì œ: ì•”ì°¸ê²Œì™€ ë¶€ìˆ˜ì²´ì— ê´€í•œ ì—°êµ¬ (p. 98)
 
 Crabs <- read.table("http://www.stat.ufl.edu/~aa/cat/data/Crabs.dat", 
 					  header = TRUE)
 Crabs
-#sat:ºÎ¼öÃ¼ ¼ö , width:¾ÏÂü°ÔµîµüÁö³Êºñ
+#sat:ë¶€ìˆ˜ì²´ ìˆ˜ , width:ì•”ì°¸ê²Œë“±ë”±ì§€ë„ˆë¹„
 str(Crabs)
 
-#¹ÝÀÀº¯¼ö~¼³¸íº¯¼ö 
+#ë°˜ì‘ë³€ìˆ˜~ì„¤ëª…ë³€ìˆ˜ 
 plot(sat ~ width, xlab = "Width", ylab = "Number of satellites", data = Crabs) 
-#ºÎ¼öÃ¼¼ö, ³ÐÀÌ ±×¸²±×·Áº» °Í 
+#ë¶€ìˆ˜ì²´ìˆ˜, ë„“ì´ ê·¸ë¦¼ê·¸ë ¤ë³¸ ê²ƒ 
 ---------------------
   
   
-######¸ðÇüÀûÇÕ (Æ÷¾Æ¼ÛºÐÆ÷)
-                          #family=ºÐÆ÷(link=¿¬°áÇÔ¼ö)
+######ëª¨í˜•ì í•© (í¬ì•„ì†¡ë¶„í¬)
+                          #family=ë¶„í¬(link=ì—°ê²°í•¨ìˆ˜)
 fit <- glm(sat ~ width, family = poisson(link = log), data = Crabs)
 
 summary(fit)
 
-#³Êºñ°¡ 26.3ÀÏ ¶§ÀÇ ÀûÇÕ°ª(M^)
+#ë„ˆë¹„ê°€ 26.3ì¼ ë•Œì˜ ì í•©ê°’(M^)
 fit$fitted[26.3]
 --------
   
@@ -32,16 +32,16 @@ gam.fit <- gam(sat ~ s(width), family = poisson, data = Crabs)  #s:smoothing
 curve(predict(gam.fit, data.frame(width = x), type = "resp"), add = TRUE)
 
 
-# ¿¬½À¹®Á¦ 3.13(b) #¾ÏÂü°Ô Æò±Õ¹«°Ô 2.44ÀÏ ¶§ ÀûÇÕ°ª 
+# ì—°ìŠµë¬¸ì œ 3.13(b) #ì•”ì°¸ê²Œ í‰ê· ë¬´ê²Œ 2.44ì¼ ë•Œ ì í•©ê°’ 
 exp(-0.42841 + 0.58930*(2.44))
-#(c): x(¹«°Ô)°¡ ÇÑ´ÜÀ§ Áõ°¡ÇÒ ¶§ ¹ß»ýÇÏ´Â ½Â¹ýÈ¿°ú 
+#(c): x(ë¬´ê²Œ)ê°€ í•œë‹¨ìœ„ ì¦ê°€í•  ë•Œ ë°œìƒí•˜ëŠ” ìŠ¹ë²•íš¨ê³¼ 
 exp(-0.42841 + 0.58930*(2.44+1))
-# ÇÑ´ÜÀ§ Áõ°¡ÇÒ ¶§ exp(0.589)¹è Áõ°¡
-exp(0.58930) #exp(B)  #½Â¹ýÈ¿°ú 
+# í•œë‹¨ìœ„ ì¦ê°€í•  ë•Œ exp(0.589)ë°° ì¦ê°€
+exp(0.58930) #exp(B)  #ìŠ¹ë²•íš¨ê³¼ 
 
 -------------------
-  # likelihood ratio test :°¡´Éµµºñ°ËÁ¤
+  # likelihood ratio test :ê°€ëŠ¥ë„ë¹„ê²€ì •
   install.packages("car")
 library(car)
 
-Anova(fit) #LR Chisq :°¡´Éµµºñ°ËÁ¤Åë°è·® 
+Anova(fit) #LR Chisq :ê°€ëŠ¥ë„ë¹„ê²€ì •í†µê³„ëŸ‰ 
