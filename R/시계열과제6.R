@@ -1,21 +1,21 @@
-soju <- read.table("C://Users//ÀÌ¼­Çö//Desktop//2021-1ÇÐ±â//soju.txt",header=FALSE)
+soju <- read.table("C://Users//ì´ì„œí˜„//Desktop//2021-1í•™ê¸°//soju.txt",header=FALSE)
 soju.ts <- ts(soju[,2], frequency=4, start=c(1965,01),end=c(2021,02))
 plot(soju.ts)
 
-#¸ðÇü½Äº° 1´Ü°è
-#Àû´çÇÑ º¯¼öº¯È¯
-#ºÐ»ê¾ÈÁ¤È­ ->°úÁ¦5ÀÇ °á°ú box-coxº¯È¯ º¸´Ù logº¯È¯ÀÌ ºÐ»êÀ» ´õ ¾ÈÁ¤È­ ½ÃÄÑÁÜ
+#ëª¨í˜•ì‹ë³„ 1ë‹¨ê³„
+#ì ë‹¹í•œ ë³€ìˆ˜ë³€í™˜
+#ë¶„ì‚°ì•ˆì •í™” ->ê³¼ì œ5ì˜ ê²°ê³¼ box-coxë³€í™˜ ë³´ë‹¤ logë³€í™˜ì´ ë¶„ì‚°ì„ ë” ì•ˆì •í™” ì‹œì¼œì¤Œ
 SJ <- log(soju.ts)
 plot(SJ)
 --------------------------
-#¸ðÇü½Äº° 2´Ü°è : Â÷ºÐÂ÷¼ö °áÁ¤ ¹× Â÷ºÐ ½ÃÇà
+#ëª¨í˜•ì‹ë³„ 2ë‹¨ê³„ : ì°¨ë¶„ì°¨ìˆ˜ ê²°ì • ë° ì°¨ë¶„ ì‹œí–‰
 plot(SJ)
-acf(SJ)  #sacf °¡ ¿Ï¸¸ÇÏ°Ô ÁÙ¾îµê -> Â÷ºÐ ÇÊ¿ä 
+acf(SJ)  #sacf ê°€ ì™„ë§Œí•˜ê²Œ ì¤„ì–´ë“¦ -> ì°¨ë¶„ í•„ìš” 
 pacf(SJ)
 diff1 <- diff(SJ)
 
 plot(diff1)
-acf(diff1)  #sacf ±Þ°ÝÇÏ°Ô ÁÙ¾îµê  
+acf(diff1)  #sacf ê¸‰ê²©í•˜ê²Œ ì¤„ì–´ë“¦  
 pacf(diff1)
 
 diff2 <- diff(diff1)
@@ -23,18 +23,18 @@ plot(diff2)
 acf(diff2)
 pacf(diff2)
 
-#Â÷ºÐÂ÷¼ö=2
+#ì°¨ë¶„ì°¨ìˆ˜=2
 
-#¸ðÇü½Äº° 3´Ü°è :ARMA¸ðÇüÀÇ Â÷¼ö °áÁ¤ 
+#ëª¨í˜•ì‹ë³„ 3ë‹¨ê³„ :ARMAëª¨í˜•ì˜ ì°¨ìˆ˜ ê²°ì • 
 ------------------------------------
 plot(SJ)
 library(tseries)
-#Â÷ºÐÀÌ ÇÊ¿äÇÑÁö È®ÀÎ 
+#ì°¨ë¶„ì´ í•„ìš”í•œì§€ í™•ì¸ 
 adf.test(SJ)
-#H0:Â÷ºÐÀÌ ÇÊ¿äÇÑºñÁ¤»ó½Ã°è¿­ H1:Â÷ºÐXÁ¤»ó½Ã°è¿­
-#p-value°¡ Å­ ±Í¹«°¡¼³ ÁöÁö -Â÷ºÐÇÊ¿ä
+#H0:ì°¨ë¶„ì´ í•„ìš”í•œë¹„ì •ìƒì‹œê³„ì—´ H1:ì°¨ë¶„Xì •ìƒì‹œê³„ì—´
+#p-valueê°€ í¼ ê·€ë¬´ê°€ì„¤ ì§€ì§€ -ì°¨ë¶„í•„ìš”
 kpss.test(SJ)
-#p-value°¡ 0.05 º¸´Ù ÀÛÀ½ : ´ë¸³°¡¼³ ÁöÁö - Â÷ºÐÀÌ ÇÊ¿äÇÔ 
+#p-valueê°€ 0.05 ë³´ë‹¤ ìž‘ìŒ : ëŒ€ë¦½ê°€ì„¤ ì§€ì§€ - ì°¨ë¶„ì´ í•„ìš”í•¨ 
 
 SJ1<-diff(SJ)
 plot(SJ1)
@@ -42,11 +42,11 @@ acf(SJ1)
 pacf(SJ1)
 
 adf.test(SJ1)
-#À¯ÀÇÈ®·üÀÌ À¯ÀÇ¼öÁØº¸´Ù ÀÛÀ½ : ±Í¹«°¡¼³ ±â°¢ - Â÷ºÐX Á¤»ó½Ã°è¿­
-## Â÷ºÐÂ÷¼ö 1·Î °áÁ¤ 
+#ìœ ì˜í™•ë¥ ì´ ìœ ì˜ìˆ˜ì¤€ë³´ë‹¤ ìž‘ìŒ : ê·€ë¬´ê°€ì„¤ ê¸°ê° - ì°¨ë¶„X ì •ìƒì‹œê³„ì—´
+## ì°¨ë¶„ì°¨ìˆ˜ 1ë¡œ ê²°ì • 
 
 
-#ÃÖÀûÀÇ ¸ðÇü Ã£±â 
+#ìµœì ì˜ ëª¨í˜• ì°¾ê¸° 
 library(forecast)
 ar1<-Arima(SJ1,order=c(1,1,0))
 ar1
@@ -94,41 +94,41 @@ arma32 <- Arima(SJ1,order=c(3,1,2))
 arma44 <- Arima(SJ1,order=c(4,1,4))
 
 aic<- AIC(WN,ar1,ar2,ar3,ar4,ar5,ar6,ar7,ar8,ar9,ar10,ma1,ma2,ma3,ma4,ma5,ma6,ma7,ma8,ma9,ma10,arma11,arma21,arma12,arma22,arma31,arma13,arma33,arma23,arma32,arma44)
-#arma11 ÀÌ aicÃÖ¼Ò 
+#arma11 ì´ aicìµœì†Œ 
 
 bic<- BIC(WN,ar1,ar2,ar3,ar4,ar5,ar6,ar7,ar8,ar9,ar10,ma1,ma2,ma3,ma4,ma5,ma6,ma7,ma8,ma9,ma10,arma11,arma21,arma12,arma22,arma31,arma13,arma33,arma23,arma32,arma44)
-#arma11ÀÌ bicÃÖ¼Ò 
+#arma11ì´ bicìµœì†Œ 
 
 min(aic)
 min(bic)
 
 
-#aic¿Í bic°¡ ÃÖ¼Ò°¡ µÇ´Â arma11¸ðÇü ¼±ÅÃ 
+#aicì™€ bicê°€ ìµœì†Œê°€ ë˜ëŠ” arma11ëª¨í˜• ì„ íƒ 
 arma1 <- Arima(SJ1,order=c(1,1,1))
 
 
-#¸ðÇüÁø´Ü
+#ëª¨í˜•ì§„ë‹¨
 
-#°úÀûÇÕ
-#¼±ÅÃÇÑ ¸ðÇüMA(2)
+#ê³¼ì í•©
+#ì„ íƒí•œ ëª¨í˜•MA(2)
 arma11 <- Arima(SJ1,order=c(1,1,1))  
 
-abs(-0.0433/0.0673) #<2 -> ar2¸ð¼ö°¡ À¯ÀÇÇÏÁö ¾ÊÀ½ 
+abs(-0.0433/0.0673) #<2 -> ar2ëª¨ìˆ˜ê°€ ìœ ì˜í•˜ì§€ ì•ŠìŒ 
 
-#ÀÜÂ÷ºÐ¼®
+#ìž”ì°¨ë¶„ì„
 tsdiag(arma11)
 
-residuals(arma11)#ÀÜÂ÷ ´Ù °è»êÇØÁÜ (1000°³)
+residuals(arma11)#ìž”ì°¨ ë‹¤ ê³„ì‚°í•´ì¤Œ (1000ê°œ)
 res <- residuals(arma11)
 par(mfrow=c(1,1))
 plot(res)
-#Æò±ÕÀÌ 0ÀÎ ¼öÆò¼±Å¸ÀÔÀ¸·Î º¸ÀÌ´Â°¡ ? (O) ~ WN
-acf(res) #´Ù 0ÀÌ¾î¾ßÇÔ (O)
+#í‰ê· ì´ 0ì¸ ìˆ˜í‰ì„ íƒ€ìž…ìœ¼ë¡œ ë³´ì´ëŠ”ê°€ ? (O) ~ WN
+acf(res) #ë‹¤ 0ì´ì–´ì•¼í•¨ (O)
 pacf(res)
 
-Box.test(arma11$residuals,type="Ljung-Box") #³ôÀº À¯ÀÇÈ®·üÀ» º¸ÀÓ 
+Box.test(arma11$residuals,type="Ljung-Box") #ë†’ì€ ìœ ì˜í™•ë¥ ì„ ë³´ìž„ 
 -----------------------------------------------
-#¹Ì·¡½ÃÁ¡ °ª 12°³ ¿¹Ãø 
+#ë¯¸ëž˜ì‹œì  ê°’ 12ê°œ ì˜ˆì¸¡ 
 fit<-Arima(SJ1,order=c(1,1,1))
 fit
 predict(fit,n.ahead=12)
