@@ -1,41 +1,41 @@
-soju <- read.table("C://Users//ÀÌ¼­Çö//Desktop//2021-1ÇÐ±â//soju.txt",header=FALSE)
+soju <- read.table("C://Users//ì´ì„œí˜„//Desktop//2021-1í•™ê¸°//soju.txt",header=FALSE)
 soju.ts <- ts(soju[,2], frequency=4, start=c(1965,01),end=c(2021,02))
 plot(soju.ts)
 acf(soju.ts)
 pacf(soju.ts)
-#ºÐ»ê¾ÈÁ¤È­ -> Æò±Õ¾ÈÁ¤È­
+#ë¶„ì‚°ì•ˆì •í™” -> í‰ê· ì•ˆì •í™”
 
 
-#ºÐ»ê¾ÈÁ¤È­ 
-#1)·Î±×º¯È¯
+#ë¶„ì‚°ì•ˆì •í™” 
+#1)ë¡œê·¸ë³€í™˜
 plot(log(soju.ts))
-#¾ÈÁ¤È­°¡ µÇÁö ¾ÊÀ½
-#2)box-coxº¯È¯ (¸èº¯È¯)
+#ì•ˆì •í™”ê°€ ë˜ì§€ ì•ŠìŒ
+#2)box-coxë³€í™˜ (ë©±ë³€í™˜)
 library(MASS)
 x<-time(soju.ts)
 bc.soju <- boxcox(soju.ts~x)
 lam <- bc.soju$x[which.max(bc.soju$y)]
-lam #box-coxº¯È¯À» ÅëÇÑ ¸ð¼ö ¶÷´Ù 
+lam #box-coxë³€í™˜ì„ í†µí•œ ëª¨ìˆ˜ ëžŒë‹¤ 
 
 par(mfrow=c(1,2))
 plot(log(soju.ts))
 plot((soju.ts)^lam)
 cov(matrix(soju.ts))
-cov(matrix(log(soju.ts)))  #ºÐ»ê ¾ÈÁ¤È­°¡ ´õ ÀßµÊ 
+cov(matrix(log(soju.ts)))  #ë¶„ì‚° ì•ˆì •í™”ê°€ ë” ìž˜ë¨ 
 cov(matrix((soju.ts)^lam))
 
 
 -------
-#Æò±Õ¾ÈÁ¤È­ 
-#1)Ãß¼¼Á¦°Å
-lm(log(soju.ts)~x)  #ÃßÁ¤ÇÑ ½Ä 
-DT1 <- lm(log(soju.ts)~x)$residual  #ÀÜÂ÷°è»ê 
+#í‰ê· ì•ˆì •í™” 
+#1)ì¶”ì„¸ì œê±°
+lm(log(soju.ts)~x)  #ì¶”ì •í•œ ì‹ 
+DT1 <- lm(log(soju.ts)~x)$residual  #ìž”ì°¨ê³„ì‚° 
 plot(DT1)
 plot.ts(DT1)
 lines(lowess(DT1),col="blue")
-#Æò±Õ¾ÈÁ¤È­°¡ Àß ¾ÈµÊ
+#í‰ê· ì•ˆì •í™”ê°€ ìž˜ ì•ˆë¨
 
-#1-1) ÀÌÂ÷Ç× Ãß¼¼Á¦°Å
+#1-1) ì´ì°¨í•­ ì¶”ì„¸ì œê±°
 DT2<- lm(log(soju.ts)~x+I(x^2))$residual
 plot.ts(DT2)
 lines(lowess(DT2),col="blue") 
@@ -47,9 +47,9 @@ lines(lowess(DT3),col="blue")
 DT4<- lm(log(soju.ts)~x+I(x^2)+I(x^3)+I(x^4))$residual
 plot.ts(DT4)
 lines(lowess(DT4),col="blue")
-#¾î´ÀÁ¤µµ Æò±ÕÀÌ ¾ÈÁ¤È­ µÇ¾úÁö¸¸ ¾ÆÁ÷ ÀÏÁ¤ÇÑ °ªÀº ¾Æ´Ô
+#ì–´ëŠì •ë„ í‰ê· ì´ ì•ˆì •í™” ë˜ì—ˆì§€ë§Œ ì•„ì§ ì¼ì •í•œ ê°’ì€ ì•„ë‹˜
 
-#2)°èÀýÁ¶Á¤
+#2)ê³„ì ˆì¡°ì •
 DT.ts <- ts(DT4,start=c(1965,1),frequency=4)
 DT.ts
 
@@ -61,26 +61,26 @@ plot(SA)
 
 
 
-#3)Â÷ºÐ - È®·üÀû Ãß¼¼°¡ Á¸ÀçÇÏ´Â °æ¿ì Ãß¼¼Á¦°ÅÇØµµ Á¤»ó¼º ¸¸Á·ÇÏÁö ¾ÊÀ½ 
+#3)ì°¨ë¶„ - í™•ë¥ ì  ì¶”ì„¸ê°€ ì¡´ìž¬í•˜ëŠ” ê²½ìš° ì¶”ì„¸ì œê±°í•´ë„ ì •ìƒì„± ë§Œì¡±í•˜ì§€ ì•ŠìŒ 
 plot(log(soju.ts))
-#1Â÷ Â÷ºÐ
+#1ì°¨ ì°¨ë¶„
 plot(diff(log(soju.ts),lag=1,differences = 1))
-#2Â÷ Â÷ºÐ
+#2ì°¨ ì°¨ë¶„
 plot(diff(log(soju.ts),lag=1,differences = 2))
-#2Â÷ Â÷ºÐ ÇßÀ» ¶§ ´õ Á¤»óÈ­ µÈ °ÍÀ» È®ÀÎ 
+#2ì°¨ ì°¨ë¶„ í–ˆì„ ë•Œ ë” ì •ìƒí™” ëœ ê²ƒì„ í™•ì¸ 
 
-#box-coxº¯È¯ÇÑ µ¥ÀÌÅÍ Â÷ºÐ 
+#box-coxë³€í™˜í•œ ë°ì´í„° ì°¨ë¶„ 
 z <- ((soju.ts)^lam)/lam
 z1 <- diff(z,differences = 2)
 plot(z1)
 
 
-#ºñ±³
+#ë¹„êµ
 par(mfrow=c(2,2))
 plot(diff(log(soju.ts),lag=1,differences = 1))
 plot(diff(log(soju.ts),lag=1,differences = 2))
 plot(diff(log(soju.ts),lag=12,differences = 1))
 plot(diff(log(soju.ts),lag=1,differences = 1),lag=12,differences=1)
-#2Â÷ Â÷ºÐÀÌ Á¦ÀÏ Á¤»óÈ­ 
+#2ì°¨ ì°¨ë¶„ì´ ì œì¼ ì •ìƒí™” 
 
-#ÀÌµ¥ÀÌÅÍ´Â ¼±ÇüÃß¼¼¹æ¹ý º¸´Ù´Â Â÷ºÐÀÌ ½Ã°è¿­À» Á¤»óÈ­ ÇÏ±â¿¡´Â ´õ ÀûÇÕÇÑ ¹æ¹ýÀÌ¶ó°í »ý°¢ 
+#ì´ë°ì´í„°ëŠ” ì„ í˜•ì¶”ì„¸ë°©ë²• ë³´ë‹¤ëŠ” ì°¨ë¶„ì´ ì‹œê³„ì—´ì„ ì •ìƒí™” í•˜ê¸°ì—ëŠ” ë” ì í•©í•œ ë°©ë²•ì´ë¼ê³  ìƒê° 
